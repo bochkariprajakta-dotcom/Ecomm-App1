@@ -3,7 +3,7 @@ name: Continuous Integration
 on:
   # if any push on main branch
   push:
-    branches:
+    branches: ["main"]
   # if any pull request on main branch
   pull_request:
 
@@ -29,25 +29,25 @@ jobs:
 
       # install nodejs
       - name : Setup Node.js
-        uses : actions/setup-node@v3             # github action to install nodejs
+        uses : actions/setup             # github action to install nodejs
         with:
           node-version : {{matrix.node-version}} # refernce the node-version set above
-          cache :           # command to install the node packages
-          cache-dependency-path :           # path to the package file
+          cache :  npm         # command to install the node packages
+          cache-dependency-path :  '/frontened/package-lock,json'         # path to the package file
 
 
       # install dependencies
       - name : Install dependencies
-        run :npm install
+        run : npm install
 
       # generate prisma client
       - name : Prisma Client
-        run :npx prisma generate
+        run : npx prisma generate
 
       #  check the build
       - name : Build Check
         run : npm run build
-        run : npm run build
+        
 
 # Job for Frontend
   frontend-ci :
@@ -71,7 +71,7 @@ jobs:
         with:
           node-version : {{matrix.node-version}}
           cache :           # command to install the node packages
-          cache-dependency-path :           # path to the package file
+          cache-dependency-path : '/frontened/package-lock.json'          # path to the package file
 
       - name : Install Dependencies
         run : npm install
