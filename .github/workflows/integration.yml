@@ -46,7 +46,8 @@ jobs:
 
       #  check the build
       - name : Build Check
-        run :npm run build
+        run : npm run build
+        run : npm run build
 
 # Job for Frontend
   frontend-ci :
